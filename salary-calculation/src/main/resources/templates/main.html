@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+
+    <title>Salary Calculation</title>
+</head>
+<body>
+<h1>Расчет зарплаты сотрудников</h1>
+<div>
+    <div class="row">
+        <div class="col-12 bg-light vh-100">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                     aria-labelledby="v-pills-home-tab">
+                    <div class="container-fluid mh-100">
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-all-employees-tab" data-toggle="tab"
+                                   href="#nav-all-employees" role="tab" aria-controls="nav-all-employees"
+                                   aria-selected="true">Таблица
+                                    сотрудников</a>
+                                <a class="nav-item nav-link" id="nav-add-employee-tab" data-toggle="tab"
+                                   href="#nav-add-employee" role="tab" aria-controls="nav-add-employee"
+                                   aria-selected="false">Добавить сотрудника</a>
+                                <a class="nav-item nav-link" id="nav-salary-tab" data-toggle="tab"
+                                   href="#nav-salary" role="tab" aria-controls="nav-salary"
+                                   aria-selected="false">Расчет зарплаты</a>
+                                <a class="nav-item nav-link" id="nav-subordinate-tab" data-toggle="tab"
+                                   href="#nav-subordinate" role="tab" aria-controls="nav-subordinate"
+                                   aria-selected="false">Просмотр подчиненных</a>
+                            </div>
+                        </nav>
+                        <!--------------------------------Все сотрудники---------------------------->
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-all-employees" role="tabpanel"
+                                 aria-labelledby="nav-all-employees">
+                                <div class="card">
+                                    <h5 class="card-header">Все сотрудники</h5>
+                                    <div class="card-body">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>№ п/п</th>
+                                                <th>Имя сотрудника</th>
+                                                <th>Дата трудоустройства</th>
+                                                <th>Группа</th>
+                                                <th>Базовая ставка</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="allPersonTable">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!------------Добавление нового сотрудника------------------------>
+                            <div class="tab-pane fade" id="nav-add-employee" role="tabpanel"
+                                 aria-labelledby="nav-add-employee">
+                                <div class="card">
+                                    <h5 class="card-header">Введите данные нового сотрудника</h5>
+                                    <div class="card-body">
+                                        <form align="center" class="offset-md-4 col-md-3 mt-4 mb-4"
+                                              id="addPersonForm">
+                                            <div class="form-group">
+                                                <label for="newName" class="font-weight-bold">Имя сотрудника</label>
+                                                <input type="text" class="form-control" id="newName"
+                                                       placeholder="Введите имя">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="newDateEmployment" class="font-weight-bold">Дата
+                                                    трудоустройства</label>
+                                                <input type="date" class="form-control"
+                                                       id="newDateEmployment"
+                                                       placeholder="Выберете дату трудоустройства">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="newGroup" class="font-weight-bold">Группа</label>
+                                                <select class="form-control" id="newGroup"
+                                                        placeholder="Выберете группу" size="1">
+                                                    <option selected="selected" value="EMPLOYEE">Employee</option>
+                                                    <option value="MANAGER">Manager</option>
+                                                    <option value="SALESMAN">Salesman</option>
+                                                </select>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="newRateSalary" class="font-weight-bold">Базовая
+                                                    ставка</label>
+                                                <input type="number" class="form-control"
+                                                       id="newRateSalary" placeholder="Введите базовую ставку">
+                                            </div>
+                                            <button onclick="addPerson()" type="button" class="btn btn-success">
+                                                Добавить сотрудника
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!---------------Выбор сотрудника и даты и получение зарплат--------------->
+                            <div class="tab-pane fade" id="nav-salary" role="tabpanel"
+                                 aria-labelledby="nav-salary">
+                                <div class="card">
+                                    <h5 class="card-header">Выберете дату и сотрудника, чтобы расчитать зарплату</h5>
+                                    <div class="card-body">
+                                        <form align="center" class="offset-md-4 col-md-3 mt-4 mb-4"
+                                              id="selectDateForm">
+                                            <div class="form-group">
+                                                <label for="selectDate" class="font-weight-bold">Дата</label>
+                                                <input type="date" class="form-control"
+                                                       id="selectDate" placeholder="selectDate">
+                                            </div>
+                                        </form>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-sm">
+                                                    <form align="center" class="offset-md-1 col-md-8 mt-8 mb-8"
+                                                          id="selectEmployeeForm">
+                                                        <div class="form-group">
+                                                            <label for="selectEmployee" class="font-weight-bold">Сотрудник</label>
+                                                            <select class="custom-select" id="selectEmployee">
+                                                                <option id="selectEmployeeOptions"
+                                                                ></option>
+                                                            </select>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="col-sm">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-sm">
+                                                    <form align="center" class="offset-md-1 col-md-8 mt-8 mb-8"
+                                                          id="getSalaryForm">
+                                                        <div class="form-group">
+                                                            <button onclick="getSalarySelectPerson()" type="button"
+                                                                    class="btn btn-info">
+                                                                Расчитать зарплату выбранного сотрудника
+                                                            </button>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="salaryEmployee" class="font-weight-bold">Зарплата
+                                                                сотрудника</label>
+                                                            <input type="text" class="form-control"
+                                                                   disabled
+                                                                   id="salaryEmployee"
+                                                                   placeholder="Зарплата сотрудника">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <form align="center" class="offset-md-1 col-md-8 mt-8 mb-8"
+                                                          id="allEmployeeSalaryForm">
+                                                        <div class="form-group">
+                                                            <button onclick="getSalaryAllPersons()" type="button"
+                                                                    class="btn btn-success">
+                                                                Расчитать зарплату всех сотрудников
+                                                            </button>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="salaryAllEmployee" class="font-weight-bold">Зарплата
+                                                                всех
+                                                                сотрудников</label>
+                                                            <input type="text" class="form-control"
+                                                                   disabled
+                                                                   id="salaryAllEmployee"
+                                                                   placeholder="Зарплата всех сотрудников">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!------Просмотр подчиненных------------->
+                            <div class="tab-pane fade" id="nav-subordinate" role="tabpanel"
+                                 aria-labelledby="nav-subordinate">
+                                <div class="card">
+                                    <h5 class="card-header">Выберете сотрудника для просмотра его подчиненных</h5>
+                                    <div class="card-body">
+
+
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-sm">
+                                                    <form align="center" class="offset-md-1 col-md-12 mt-12 mb-12"
+                                                          id="getPossibleBoss">
+
+                                                        <div class="form-group">
+                                                            <label for="selectEmployeeGetSubordinate"
+                                                                   class="font-weight-bold">Сотрудник</label>
+                                                            <select class="custom-select"
+                                                                    id="selectEmployeeGetSubordinate">
+                                                                <option id="selectEmployeeGetSubordinateOptions"
+                                                                ></option>
+                                                            </select>
+                                                        </div>
+                                                        <button onclick="getSubordinateList(), getNewSubordinateList()" type="button"
+                                                                class="btn btn-success" id="showSubordinateButton">
+                                                            Показать подчиненных
+                                                        </button>
+
+                                                    </form>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <form align="center" class="offset-md-1 col-md-12 mt-12 mb-12"
+                                                          id="listSubordinate">
+
+                                                        <div class="form-group">
+                                                            <label for="subordinateList" class="font-weight-bold">Список
+                                                                подчиненных</label>
+                                                            <ul class="list-group" id="subordinateList">
+                                                            </ul>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <form align="center" class="offset-md-1 col-md-12 mt-12 mb-12"
+                                                          id="addSubordinate">
+
+                                                        <div class="form-group">
+                                                            <label for="selectEmployeeGetSubordinate"
+                                                                   class="font-weight-bold">Выберете нового подчиненного</label>
+                                                            <select class="custom-select"
+                                                                    id="selectSubordinate">
+                                                                <option id="selectSubordinateOptions"
+                                                                ></option>
+                                                            </select>
+                                                        </div>
+                                                        <button onclick="addSubordinate()" type="button"
+                                                                class="btn btn-success">
+                                                            Добавить подчиненного
+                                                        </button>
+
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--------------->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
